@@ -43,7 +43,6 @@ Panama (geo): 0.043789s
 
 #
 # two files will be created.  .settings.env, pia.conf
-# .settings.env keeps
 
 > cp pia.conf /usr/local/etc/wireguard/pia.conf
 > wg-quick up pia
