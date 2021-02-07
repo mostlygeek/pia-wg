@@ -12,10 +12,10 @@ Usage:
   ./pia-wg.sh pf_port  - last known port forwarding port
 ```
 
-## Quickstart 
+## Quickstart
 
 1. Download `pia-wg.sh` into your jail
-2. Run `pia-wg.sh setup`.  Automatically find the fastest region, exchange wireguard keys and create a wireguard configuration. 
+2. Run `pia-wg.sh setup`.  Automatically find the fastest region, exchange wireguard keys and create a wireguard configuration.
 3. Copy `pia.conf` to `/usr/local/etc/wireguard`
 4. Start your VPN connection
 5. Done!
@@ -23,11 +23,12 @@ Usage:
 It looks like this:
 
 ```
-# check your current IP 
+# check your current IP
 > curl icanhazip.com
 
 # fetch the script into your FreeNAS jail
-> curl -LO ..
+> curl -LO https://raw.githubusercontent.com/mostlygeek/pia-wg/main/pia-wg.sh
+> curl -LO https://raw.githubusercontent.com/mostlygeek/pia-wg/main/ca.rsa.4096.crt
 > chmod +x pia-wg.sh
 
 # Setup and create configuration files
@@ -42,7 +43,7 @@ Panama (geo): 0.043789s
 
 #
 # two files will be created.  .settings.env, pia.conf
-# .settings.env keeps 
+# .settings.env keeps
 
 > cp pia.conf /usr/local/etc/wireguard/pia.conf
 > wg-quick up pia
@@ -53,22 +54,22 @@ Panama (geo): 0.043789s
 
 __When running `pia-wg.sh setup` make sure use `true` when asked about port-forwarding.__
 
-PIA port forwarding generally works like this. 
+PIA port forwarding generally works like this.
 
-1. Through an established VPN connection ... 
+1. Through an established VPN connection ...
 2. Call the REST API on the wireguard server to request a port forward
 3. Keep port forwarding active with a keep alive request at least every 15 minutes
 
-There are three commands to make this easier: 
+There are three commands to make this easier:
 
 1. `pia-wg.sh pf_set`
 2. `pia-wg.sh pf_clean`
 3. `pia-wg.sh pf_port`
 
-Usage example: 
+Usage example:
 
 ```
-# initial run creates a new .portforward.env 
+# initial run creates a new .portforward.env
 > ./pia-wg.sh pf_set
 File: .portforward.env not found.  Creating a new one.
   - Fetching token from metaserver host ... Success!
@@ -77,14 +78,14 @@ File: .portforward.env not found.  Creating a new one.
   - Binding/Refreshing binding on port:49658 ... Success!
 
 
-# ./pia-wg.sh pf_set again uses the cached values 
+# ./pia-wg.sh pf_set again uses the cached values
 # to keep the port forward alive.  This can be automated via a cronjob.
 
 > ./pia-wg.sh pf_set
 Loading cached settings from .portforward.env
   - Binding/Refreshing binding on port:49658 ... Success!
 
-# the last known port can be printed with: 
+# the last known port can be printed with:
 > ./pia-wg.sh pf_port
 49658
 
@@ -94,12 +95,12 @@ Loading cached settings from .portforward.env
 
 ### Port Forwarding Expiry
 
-The port forwarding allocation expires every two months.  This means every few months the configuration needs to be redone.  This can be done like this: 
+The port forwarding allocation expires every two months.  This means every few months the configuration needs to be redone.  This can be done like this:
 
 ```
 # clean up the old settings
-> ./pia-wg.sh pf_clean 
- 
+> ./pia-wg.sh pf_clean
+
 # set up port forwarding again
 > ./pia_wg.sh pf_set
 ```
