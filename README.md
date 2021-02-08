@@ -28,7 +28,6 @@ It looks like this:
 
 # fetch the script into your FreeNAS jail
 > curl -LO https://raw.githubusercontent.com/mostlygeek/pia-wg/main/pia-wg.sh
-> curl -LO https://raw.githubusercontent.com/mostlygeek/pia-wg/main/ca.rsa.4096.crt
 > chmod +x pia-wg.sh
 
 # Setup and create configuration files

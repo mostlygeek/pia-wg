@@ -28,6 +28,13 @@ for CMD in curl jq wg-quick base64; do
     fi
 done
 
+if [ ! -e ca.rsa.4096.crt ]; then
+    echo "!! ca.rsa.4096.crt missing.  Fetching..."
+    echo
+    curl -sLO https://raw.githubusercontent.com/mostlygeek/pia-wg/main/ca.rsa.4096.crt
+fi
+
+
 # the settings file is used to store auth and wireguard info
 # it is full of bash variables that are `source` into this script
 # when they are needed
